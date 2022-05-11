@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const { PORT, dbConfig } = require('./config');
-const { addUserToDb } = require('./model/userModel');
+const { addUserToDb, findUserByEmail } = require('./model/userModel');
 
 const app = express();
 
@@ -62,11 +62,12 @@ app.post('/register', async (req, res) => {
 });
 
 // POST /login - tuscias routas grazina 'bandom prisiloginti'
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const gautasEmail = req.body.email;
   const gautasSlaptazodis = req.body.password;
   // patikrinti ar yra toks email kaip gautas
-  const foundUser = users.find((uObj) => uObj.email === gautasEmail);
+  const foundUser = await findUserByEmail(gautasEmail);
+  console.log('foundUser===', foundUser);
   // jei nera 400 email or pass not found
   if (!foundUser) {
     res.status(400).json('email or pass not found(email)');
