@@ -7,11 +7,70 @@ const app = express();
 
 const PORT = 3002;
 
-//MiddleWare
-app.use(morgan('dev'));
+// users db
+const users = [
+  { email: 'james@bond.com', password: '123456' },
+  { email: 'jane@bdoe.com', password: '123456' },
+];
 
-app.get('/', function (req, res) {
+// MiddleWare
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(showBody);
+
+// first middleware helper
+function showBody(req, res, next) {
+  if (req.method === 'POST') {
+    console.log('request body ===', req.body);
+  }
+  next();
+}
+
+app.get('/', (req, res) => {
   res.send('Hello World');
+});
+
+app.post('/register', (req, res) => {
+  // gauti vartotojo email ir pass ir irtasiti i users
+  const { email, password } = req.body;
+  const newUser = {
+    email,
+    password,
+  };
+  users.push(newUser);
+
+  res.status(201).json('user created');
+  console.log('users ===', users);
+});
+
+// POST /login - tuscias routas grazina 'bandom prisiloginti'
+app.post('/login', (req, res) => {
+  const gautasEmail = req.body.email;
+  const gautasSlaptazodis = req.body.password;
+  // patikrinti ar yra toks email kaip gautas
+  const foundUser = users.find((uObj) => uObj.email === gautasEmail);
+  // jei nera 400 email or pass not found
+  if (!foundUser) {
+    res.status(400).json('email or pass not found(email)');
+    return;
+  }
+  // jei yra tikrinama ar sutampa pass
+  if (foundUser.password !== gautasSlaptazodis) {
+    res.status(400).json('email or pass not found(pass)');
+    return;
+  }
+  res.json('login success');
+});
+
+// GET /users - grazina visus vartotojus json formatu
+app.get('/users', async (req, res) => {
+  res.json(users);
+});
+
+// 404 turetu grazinti json objekta
+
+app.all('*', (req, res) => {
+  res.status(404).json({ error: 'Page not found' });
 });
 
 app.listen(PORT, () => console.log('server online on port', PORT));
