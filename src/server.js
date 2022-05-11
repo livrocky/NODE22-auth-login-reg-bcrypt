@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -33,14 +34,24 @@ app.get('/', (req, res) => {
 app.post('/register', (req, res) => {
   // gauti vartotojo email ir pass ir irtasiti i users
   const { email, password } = req.body;
+  const plainTextPassword = password;
+  //   const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(plainTextPassword, 10);
+  //   console.log('salt===', salt);
+  console.log('hashedPassword===', hashedPassword);
+
+  // pass = 123456
+  // salt = dsfgdsfg.123456
+  // has = dsyherdsfdshgryghdfgh
+
   const newUser = {
     email,
-    password,
+    password: hashedPassword,
   };
+
   users.push(newUser);
 
   res.status(201).json('user created');
-  console.log('users ===', users);
 });
 
 // POST /login - tuscias routas grazina 'bandom prisiloginti'
@@ -55,7 +66,8 @@ app.post('/login', (req, res) => {
     return;
   }
   // jei yra tikrinama ar sutampa pass
-  if (foundUser.password !== gautasSlaptazodis) {
+  // bcrypt.compareSync(ivestas slaptazodis,issaugotas hashed slaptazodis)
+  if (!bcrypt.compareSync(gautasSlaptazodis, foundUser.password)) {
     res.status(400).json('email or pass not found(pass)');
     return;
   }
