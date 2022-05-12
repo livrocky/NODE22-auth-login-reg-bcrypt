@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const Joi = require('joi');
 const { PORT, dbConfig } = require('./config');
 const { addUserToDb, findUserByEmail } = require('./model/userModel');
 
@@ -66,6 +67,21 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const gautasEmail = req.body.email;
   const gautasSlaptazodis = req.body.password;
+  // validuoti gauta email ir password
+  const schema = Joi.object({
+    email: Joi.string().email().trim().lowercase().required(),
+    password: Joi.string().trim().min(5).max(10).required(),
+  });
+
+  try {
+    // abortEarly default true - rodyti tik pirma rasta klaida
+    await schema.validateAsync(req.body, { abortEarly: false });
+  } catch (error) {
+    console.log('schema.validateAsync error===', error);
+    res.status(400).json(error.details);
+    return;
+  }
+
   // patikrinti ar yra toks email kaip gautas
   const foundUser = await findUserByEmail(gautasEmail);
   console.log('foundUser===', foundUser);
