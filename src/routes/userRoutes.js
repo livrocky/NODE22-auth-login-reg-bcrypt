@@ -1,6 +1,6 @@
 const express = require('express');
-const { validateUser } = require('../middleware');
 const bcrypt = require('bcryptjs');
+const { validateUser } = require('../middleware');
 const { addUserToDb, findUserByEmail } = require('../model/userModel');
 
 const userRoutes = express.Router();
