@@ -5,7 +5,10 @@ async function addUserToDb(email, password) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'INSERT INTO users (email, password) VALUES (?, ?)';
+    const sql = `
+    INSERT INTO users(email, password)
+    VALUES (?, ?)
+    `;
     const [result] = await conn.execute(sql, [email, password]);
     return result;
   } catch (error) {
@@ -15,12 +18,13 @@ async function addUserToDb(email, password) {
     conn?.end();
   }
 }
-
 async function findUserByEmail(email) {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'SELECT * FROM users WHERE email = ?';
+    const sql = `
+    SELECT * FROM users WHERE email = ? 
+    `;
     const [result] = await conn.execute(sql, [email]);
     return result[0];
   } catch (error) {
