@@ -44,6 +44,6 @@ async function registerFetch(email, password) {
     handleError('register success');
   } else {
     // fail
-    handleError('something wrong');
+    handleError(await resp.json());
   }
 }

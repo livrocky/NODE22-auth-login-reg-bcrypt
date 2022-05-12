@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const Joi = require('joi');
 const { PORT, dbConfig } = require('./config');
 const { addUserToDb, findUserByEmail } = require('./model/userModel');
+const { showBody, validateUser } = require('./middleware');
 
 const app = express();
 
@@ -21,19 +22,11 @@ app.use(express.json());
 app.use(showBody);
 app.use(cors());
 
-// first middleware helper
-function showBody(req, res, next) {
-  if (req.method === 'POST') {
-    console.log('request body ===', req.body);
-  }
-  next();
-}
-
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.post('/register', async (req, res) => {
+app.post('/register', validateUser, async (req, res) => {
   // gauti vartotojo email ir pass ir irtasiti i users
   const { email, password } = req.body;
   const plainTextPassword = password;
@@ -64,23 +57,9 @@ app.post('/register', async (req, res) => {
 });
 
 // POST /login - tuscias routas grazina 'bandom prisiloginti'
-app.post('/login', async (req, res) => {
+app.post('/login', validateUser, async (req, res) => {
   const gautasEmail = req.body.email;
   const gautasSlaptazodis = req.body.password;
-  // validuoti gauta email ir password
-  const schema = Joi.object({
-    email: Joi.string().email().trim().lowercase().required(),
-    password: Joi.string().trim().min(5).max(10).required(),
-  });
-
-  try {
-    // abortEarly default true - rodyti tik pirma rasta klaida
-    await schema.validateAsync(req.body, { abortEarly: false });
-  } catch (error) {
-    console.log('schema.validateAsync error===', error);
-    res.status(400).json(error.details);
-    return;
-  }
 
   // patikrinti ar yra toks email kaip gautas
   const foundUser = await findUserByEmail(gautasEmail);
