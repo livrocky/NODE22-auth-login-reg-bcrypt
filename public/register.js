@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 console.log('register here');
 const BASE_URL = 'http://localhost:3002';
 
@@ -27,7 +28,15 @@ formEl.addEventListener('submit', (e) => {
 // 4. pranesti apie klaida jei tokia ivyko
 
 function handleError(msg) {
-  errorEl.textContent = msg;
+  errorEl.textContent = '';
+  if (typeof msg === 'string') {
+    errorEl.textContent = msg;
+  }
+  if (Array.isArray(msg)) {
+    msg.forEach((eObj) => {
+      errorEl.innerHTML += `${eObj.message}<br>`;
+    });
+  }
 }
 
 async function registerFetch(email, password) {
