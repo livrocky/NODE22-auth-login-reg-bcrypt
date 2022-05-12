@@ -2,7 +2,7 @@ console.log('login here');
 const BASE_URL = 'http://localhost:3002';
 
 const formEl = document.getElementById('login');
-const errroEl = document.getElementById('err');
+const errorEl = document.getElementById('err');
 
 formEl.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -12,6 +12,7 @@ formEl.addEventListener('submit', async (event) => {
     password: formEl.elements.password.value.trim(),
   };
   console.log('loginObj ===', loginObj);
+
   const resp = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
@@ -21,9 +22,10 @@ formEl.addEventListener('submit', async (event) => {
   });
   const dataInJs = await resp.json();
   console.log('dataInJs ===', dataInJs);
+
   if (dataInJs.success === true) {
     console.log('login success');
-    errroEl.textContent = '';
+    errorEl.textContent = '';
   } else {
     console.log('login fail');
     handleError(dataInJs);
@@ -31,5 +33,5 @@ formEl.addEventListener('submit', async (event) => {
 });
 
 function handleError(msg) {
-  errroEl.textContent = msg;
+  errorEl.textContent = msg;
 }
