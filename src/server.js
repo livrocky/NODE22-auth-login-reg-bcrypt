@@ -18,6 +18,7 @@ const users = [
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(showBody);
+app.use(cors());
 
 // first middleware helper
 function showBody(req, res, next) {
@@ -79,7 +80,7 @@ app.post('/login', async (req, res) => {
     res.status(400).json('email or pass not found(pass)');
     return;
   }
-  res.json('login success');
+  res.json({ success: true });
 });
 
 // GET /users - grazina visus vartotojus json formatu

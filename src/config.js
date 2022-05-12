@@ -11,7 +11,7 @@ const dbConfig = {
   port: process.env.DB_PORT,
 };
 
-console.log('dbConfig ===', dbConfig);
+// console.log('dbConfig ===', dbConfig);
 
 module.exports = {
   PORT,
