@@ -50,7 +50,7 @@ async function registerFetch(email, password) {
   });
   if (resp.status === 201) {
     // success
-    handleError('register success');
+    handleError('Registered successfully!');
   } else {
     // fail
     handleError(await resp.json());

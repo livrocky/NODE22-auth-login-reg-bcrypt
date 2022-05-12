@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 console.log('login here');
 const BASE_URL = 'http://localhost:3002';
 
@@ -25,7 +26,7 @@ formEl.addEventListener('submit', async (event) => {
 
   if (dataInJs.success === true) {
     console.log('login success');
-    errorEl.textContent = '';
+    errorEl.textContent = 'Logged in!';
   } else {
     console.log('login fail');
     handleError(dataInJs);
