@@ -15,6 +15,8 @@ async function getArrayFromDb(sql) {
   }
 }
 
+async function executeDb(sql, dataToDB) {}
+
 async function getAllBooksDb() {
   const sql = 'SELECT * FROM books';
   return getArrayFromDb(sql);
@@ -24,5 +26,8 @@ async function allBooksWithAuthors() {
   const sql = 'SELECT books.id, authors.name, authors.surname, books.title, books.year FROM books LEFT JOIN authors ON books.author_id = authors.id';
   return getArrayFromDb(sql);
 }
+
+async function insertBookDb() {}
+// executeDB
 
 module.exports = { getAllBooksDb, allBooksWithAuthors };

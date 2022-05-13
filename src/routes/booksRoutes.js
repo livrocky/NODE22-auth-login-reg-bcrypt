@@ -1,14 +1,11 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
+// const mysql = require('mysql2/promise');
 // const bcrypt = require('bcryptjs');
 // const { validateUser } = require('../middleware');
-const { dbConfig } = require('../config');
+// const { dbConfig } = require('../config');
 const { getAllBooksDb, allBooksWithAuthors } = require('../model/booksModel');
 
 // sukuriam booksRoutes routeri
-
-// extra booksModel funkcija getAllBooksDB
-
 const booksRoutes = express.Router();
 
 // GET /books - grazinti visas knygas
@@ -22,7 +19,7 @@ booksRoutes.get('/books', async (req, res) => {
   }
 });
 
-// GET /books - grazinti visas knygas
+// GET /books-authors - grazinam visas knygas su autoriu vardais ir pavardem.
 booksRoutes.get('/books-authors', async (req, res) => {
   try {
     const allBooksArr = await allBooksWithAuthors();
@@ -33,21 +30,14 @@ booksRoutes.get('/books-authors', async (req, res) => {
   }
 });
 
-// booksRoutes.get('/authorBooks', async (req, res) => {
-//   let connection;
-//   try {
-//     connection = await mysql.createConnection(dbConfig);
-//     console.log('connected');
-//     const sql = 'SELECT books.id, authors.name, authors.surname, books.title, books.year FROM books LEFT JOIN authors ON books.author_id = authors.id';
-//     const [rows] = await connection.execute(sql);
-//     res.json(rows);
-//   } catch (error) {
-//     console.log('home route error ===', error);
-//     res.status(500).json('something went wrong');
-//   } finally {
-//     // atsijungti
-//     if (connection) connection.end();
-//   }
-// });
+booksRoutes.post('/books', async (req, res) => {
+  try {
+    const newBookObj = req.body;
+    const createBookResult = await insertBookDb(newBookObj);
+    res.json(createBookResult);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
 
 module.exports = booksRoutes;

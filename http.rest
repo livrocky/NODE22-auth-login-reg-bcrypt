@@ -1,4 +1,14 @@
 ###
+POST http://localhost:3002/books
+Content-Type: application/json
+
+{
+    "title": "captain nemo",
+    "year": "1957",
+    "author_id": 2
+}
+
+###
 GET http://localhost:3002/users
 ###
 POST http://localhost:3002/register
