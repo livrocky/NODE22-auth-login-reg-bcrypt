@@ -1,1 +1,22 @@
-GET http://localhost:3002/
+###
+GET http://localhost:3002/users
+###
+POST http://localhost:3002/register
+Content-Type: application/json
+
+{
+    "email": "Jess@Bond.lt",
+    "password": "12345"
+}
+
+###
+POST http://localhost:3002/login
+
+###
+POST http://localhost:3002/login
+Content-Type: application/json
+
+{
+    "email": "Jill@Crown.lt",
+    "password": "secret123"
+}
