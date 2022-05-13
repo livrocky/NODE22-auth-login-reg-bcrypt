@@ -55,6 +55,7 @@ userRoutes.post('/login', validateUser, async (req, res) => {
     return;
   }
   res.json({ success: true });
+  // global cons userSessionId = 123456
 });
 
 module.exports = userRoutes;
