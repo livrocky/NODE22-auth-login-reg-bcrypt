@@ -4,6 +4,7 @@ const cors = require('cors');
 const { PORT } = require('./config');
 const { showBody } = require('./middleware');
 const userRoutes = require('./routes/userRoutes');
+const booksRoutes = require('./routes/booksRoutes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/', userRoutes);
+app.use('/', booksRoutes);
 
 // 404 turetu grazinti json objekta
 app.all('*', (req, res) => {
