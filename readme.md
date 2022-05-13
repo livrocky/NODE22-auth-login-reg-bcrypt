@@ -11,3 +11,12 @@
 1. instaliuoti mysql2
 2. sukurti .env prisijungimui prie db (config.js)
 3. /register route irasyti naujo vartotojo duomenis i db lenteles users
+
+### jwt
+
+[jwt npm] (https://www.npmjs.com/package/jsonwebtoken)
+
+1. npm install jsonwebtoken
+2. const jwt = require('jsonwebtoken');
+3. const token = jwt.sign({ userId: 1254 }, jwtSecret, {expiresIn: 1hr})
+4. const payload = jwt.verify(token, jwtSecret)

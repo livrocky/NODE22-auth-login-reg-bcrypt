@@ -1,8 +1,10 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validateUser } = require('../middleware');
 const { addUserToDb, findUserByEmail } = require('../model/userModel');
 
+const jwtSecret = 'secret123';
 const userRoutes = express.Router();
 
 userRoutes.post('/register', validateUser, async (req, res) => {
@@ -54,8 +56,10 @@ userRoutes.post('/login', validateUser, async (req, res) => {
     res.status(400).json('email or pass not found(pass)');
     return;
   }
-  res.json({ success: true });
-  // global cons userSessionId = 123456
+  // sugeneruoti jwt token
+  const payload = { userId: foundUser.id };
+  const token = jwt.sign(payload, jwtSecret, { expiresIn: '1h' });
+  res.json({ success: true, token });
 });
 
 module.exports = userRoutes;

@@ -28,6 +28,8 @@ formEl.addEventListener('submit', async (event) => {
     console.log('login success');
     errorEl.textContent = 'Logged in!';
     // issaugoti reiksme localStorage
+    const token = dataInJs.token;
+    localStorage.setItem('bookUserToken', token);
     window.location.href = 'books.html';
   } else {
     console.log('login fail');
