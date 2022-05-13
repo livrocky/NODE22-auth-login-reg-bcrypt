@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-use-before-define */
 console.log('login here');
 const BASE_URL = 'http://localhost:3002';
