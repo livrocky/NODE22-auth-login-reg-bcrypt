@@ -36,3 +36,6 @@ GET http://localhost:3002/books
 
 ###
 GET http://localhost:3002/books-authors
+
+###
+GET http://localhost:3002/books-count

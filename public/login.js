@@ -27,6 +27,8 @@ formEl.addEventListener('submit', async (event) => {
   if (dataInJs.success === true) {
     console.log('login success');
     errorEl.textContent = 'Logged in!';
+    // issaugoti reiksme localStorage
+    window.location.href = 'books.html';
   } else {
     console.log('login fail');
     handleError(dataInJs);
