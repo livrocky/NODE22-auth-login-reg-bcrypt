@@ -27,7 +27,13 @@ async function validateUser(req, res, next) {
   }
 }
 
+async function validateToken(req, res, next) {
+  console.log('req.headers', req.headers);
+  next();
+}
+
 module.exports = {
   showBody,
   validateUser,
+  validateToken,
 };

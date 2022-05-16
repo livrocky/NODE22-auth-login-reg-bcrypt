@@ -1,4 +1,6 @@
+/* eslint-disable object-curly-newline */
 const express = require('express');
+const { validateToken } = require('../middleware');
 // const mysql = require('mysql2/promise');
 // const bcrypt = require('bcryptjs');
 // const { validateUser } = require('../middleware');
@@ -9,7 +11,7 @@ const { getAllBooksDb, allBooksWithAuthors, insertBookDb, authorBookCount } = re
 const booksRoutes = express.Router();
 
 // GET /books - grazinti visas knygas
-booksRoutes.get('/books', async (req, res) => {
+booksRoutes.get('/books', validateToken, async (req, res) => {
   try {
     const allBooksArr = await getAllBooksDb();
     res.json(allBooksArr);

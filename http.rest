@@ -33,7 +33,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3002/books
-Authorization: "Bearer token"
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MjY3OTg3NiwiZXhwIjoxNjUyNjgzNDc2fQ.0bZBBTiPulg3fe5dhU-OpU7AXtlQ_dPQ-6MdLTfqpfk"
 
 ###
 GET http://localhost:3002/books-authors
