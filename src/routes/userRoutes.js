@@ -59,6 +59,7 @@ userRoutes.post('/login', validateUser, async (req, res) => {
   // sugeneruoti jwt token
   const payload = { userId: foundUser.id };
   const token = jwt.sign(payload, jwtSecret, { expiresIn: '1h' });
+  console.log('token===', token);
   res.json({ success: true, token });
 });
 
