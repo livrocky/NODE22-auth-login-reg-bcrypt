@@ -20,3 +20,8 @@
 2. const jwt = require('jsonwebtoken');
 3. const token = jwt.sign({ userId: 1254 }, jwtSecret, {expiresIn: 1hr})
 4. const payload = jwt.verify(token, jwtSecret)
+
+### random secret
+
+node ->
+`require('crypto').random

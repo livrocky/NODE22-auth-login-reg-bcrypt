@@ -4,7 +4,7 @@ console.log('login here');
 const BASE_URL = 'http://localhost:3002';
 
 const formEl = document.getElementById('login');
-const errorEl = document.getElementById('err');
+const errroEl = document.getElementById('err');
 
 formEl.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -27,13 +27,13 @@ formEl.addEventListener('submit', async (event) => {
 
   if (dataInJs.success === true) {
     console.log('login success');
-    errorEl.textContent = 'Logged in!';
+    errroEl.textContent = '';
     // issaugoti reiksme localStorage
     const token = dataInJs.token;
     localStorage.setItem('bookUserToken', token);
-    // sukuriapsl istorijoje nauja irasanunaviguodamas windows.location.href = 'books.html';
+    // sukuria narsykles puslapiu istorijoje nauja irasa nunaviguodamas
+    // window.location.href = 'books.html';
     // nunaviguoja, padaro kad negaletume gryzti atgal psl su back
-    window.location.href = 'books.html';
     window.location.replace('books.html');
   } else {
     console.log('login fail');
@@ -42,13 +42,13 @@ formEl.addEventListener('submit', async (event) => {
 });
 
 function handleError(msg) {
-  errorEl.textContent = '';
+  errroEl.textContent = '';
   if (typeof msg === 'string') {
-    errorEl.textContent = msg;
+    errroEl.textContent = msg;
   }
   if (Array.isArray(msg)) {
     msg.forEach((eObj) => {
-      errorEl.innerHTML += `${eObj.message}<br>`;
+      errroEl.innerHTML += `${eObj.message}<br>`;
     });
   }
 }

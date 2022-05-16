@@ -1,35 +1,34 @@
-/* eslint-disable object-curly-newline */
 const express = require('express');
 const { validateToken } = require('../middleware');
-// const mysql = require('mysql2/promise');
-// const bcrypt = require('bcryptjs');
-// const { validateUser } = require('../middleware');
-// const { dbConfig } = require('../config');
 const { getAllBooksDb, allBooksWithAuthors, insertBookDb, authorBookCount } = require('../model/booksModel');
 
-// sukuriam booksRoutes routeri
 const booksRoutes = express.Router();
+// sukuriam booksRoutes routeri
 
 // GET /books - grazinti visas knygas
 booksRoutes.get('/books', validateToken, async (req, res) => {
+  if (req.userId) {
+    // atsiusti tik to vartotojo knygas
+    console.log('gauti tik sio vartojo knygas', req.userId);
+  }
   try {
     const allBooksArr = await getAllBooksDb();
     res.json(allBooksArr);
   } catch (error) {
-    // console.log('stack===', error.stack);
+    // console.log('stack=== ', error.stack);
     res.sendStatus(500);
   }
 });
-
 booksRoutes.get('/books-count', async (req, res) => {
   try {
     const allBooksArr = await authorBookCount();
     res.json(allBooksArr);
   } catch (error) {
-    // console.log('stack===', error.stack);
+    // console.log('stack=== ', error.stack);
     res.sendStatus(500);
   }
 });
+// extra booksModel funkcija getAllBooksDB
 
 // GET /books-authors - grazinam visas knygas su autoriu vardais ir pavardem.
 booksRoutes.get('/books-authors', async (req, res) => {
@@ -37,7 +36,6 @@ booksRoutes.get('/books-authors', async (req, res) => {
     const allBooksArr = await allBooksWithAuthors();
     res.json(allBooksArr);
   } catch (error) {
-    // console.log('stack===', error.stack);
     res.sendStatus(500);
   }
 });

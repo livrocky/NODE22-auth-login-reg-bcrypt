@@ -10,7 +10,7 @@ export async function getFetch(endpoint, token) {
     const dataInJs = await resp.json();
     return dataInJs;
   } catch (error) {
-    console.warn('error in getFetch', error);
+    console.warn('erro in getFetch', error);
   }
 }
 
