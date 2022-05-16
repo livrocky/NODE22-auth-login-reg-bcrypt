@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { jwtSecret } = require('./config');

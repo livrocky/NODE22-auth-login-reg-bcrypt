@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { getFetch } from './modules/fetch.js';
 
 console.log('books');
