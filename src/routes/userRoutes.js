@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { validateUser } = require('../middleware');
 const { addUserToDb, findUserByEmail } = require('../model/userModel');
+const { jwtSecret } = require('../config');
 
 const userRoutes = express.Router();
 
