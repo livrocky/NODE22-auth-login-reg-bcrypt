@@ -31,6 +31,7 @@ async function validateUser(req, res, next) {
 
 async function validateToken(req, res, next) {
   const tokenFromHeaders = req.headers.authorization?.split(' ')[1];
+  console.log('req.headers.authorization ===', req.headers.authorization);
   // nera token
   if (!tokenFromHeaders) {
     res.status(401).json({
@@ -43,9 +44,11 @@ async function validateToken(req, res, next) {
   try {
     // token patikrinimas
     // jwt.verify(token, secret)
-    console.log('tokenFromHeaders ===', tokenFromHeaders);
+    // console.log('tokenFromHeaders ===', tokenFromHeaders);
     const tokenPayload = jwt.verify(tokenFromHeaders, jwtSecret);
     const userId = tokenPayload.userId;
+    // budas perduoti userId i tolimesne funkcija
+    req.userId = userId;
     console.log('tokenPayload ===', tokenPayload);
     next();
   } catch (error) {

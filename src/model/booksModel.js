@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const mysql = require('mysql2/promise');
 const { dbConfig } = require('../config');
 

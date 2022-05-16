@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 const express = require('express');
 const { validateToken } = require('../middleware');
 const { getAllBooksDb, allBooksWithAuthors, insertBookDb, authorBookCount } = require('../model/booksModel');

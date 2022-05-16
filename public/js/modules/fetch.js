@@ -14,4 +14,4 @@ export async function getFetch(endpoint, token) {
   }
 }
 
-export async function postFetch(endpoint, data) {}
+// export async function postFetch(endpoint, data) {}
