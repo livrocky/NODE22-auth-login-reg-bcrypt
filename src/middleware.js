@@ -26,7 +26,11 @@ async function validateUser(req, res, next) {
     next();
   } catch (error) {
     console.log('schema.validateAsync error ===', error);
-    res.status(400).json(error.details);
+    const formatedError = error.details.map((eObj) => ({
+      message: eObj.message,
+      field: eObj.path[0],
+    }));
+    res.status(400).json(formatedError);
   }
 }
 
