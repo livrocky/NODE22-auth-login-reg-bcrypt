@@ -8,6 +8,8 @@ const errroEl = document.getElementById('err');
 const emailInputEl = formEl.elements.email;
 const passwordInputEl = formEl.elements.password;
 
+console.log('emailInputEl===', emailInputEl);
+
 formEl.addEventListener('submit', async (event) => {
   event.preventDefault();
   console.log('js submit form');
@@ -18,18 +20,18 @@ formEl.addEventListener('submit', async (event) => {
   };
 
   // TODO front end validation
-  if (checkInputObj(loginObj)) {
-    console.log('checkInputObj===', checkInputObj);
-    const errorsArr = [];
-    // pasiimti loginObj ir patikrinti
-    // 1. ar reiksmes yra (ar lygu '')
-    // jeigu lygu tada formuojam klaida
-    // 2. paziureti ar ivesties laukas netrumpesnis uz 4 simbolius
-    // jeigu taip tai {message: 'too short', field: 'password'}
-    // handleError(errorsArr);
-    return;
-    // handleError([{ message: '', field: 'email' }]);
-  }
+  // if (checkInputObj(loginObj)) {
+  //   console.log('checkInputObj===', checkInputObj);
+  //   const errorsArr = [];
+  //   // pasiimti loginObj ir patikrinti
+  //   // 1. ar reiksmes yra (ar lygu '')
+  //   // jeigu lygu tada formuojam klaida
+  //   // 2. paziureti ar ivesties laukas netrumpesnis uz 4 simbolius
+  //   // jeigu taip tai {message: 'too short', field: 'password'}
+  //   // handleError(errorsArr);
+  //   return;
+  //   // handleError([{ message: '', field: 'email' }]);
+  // }
 
   console.log('loginObj ===', loginObj);
 
@@ -90,10 +92,10 @@ function clearErrors() {
   emailInputEl.nextElementSibling.textContent = '';
 }
 
-function checkInputObj(obj) {
-  for (key in obj) {
-    const value = obj[key];
-    console.log('value===', value);
-    if ((value = '')) return true;
-  }
-}
+// function checkInputObj(obj) {
+//   for (key in obj) {
+//     const value = obj[key];
+//     console.log('value===', value);
+//     if ((value = '')) return true;
+//   }
+// }
